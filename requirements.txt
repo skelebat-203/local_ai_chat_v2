@@ -1,0 +1,11 @@
+# Core Ollama API client - enables communication with local Ollama LLM models for chat functionality
+ollama
+
+# File system monitoring - watches project directory for Python file changes and automatically creates timestamped txt copies. This is a workaround for a Perpexity glitch. If you are not using Perplexity or that pyWebView can upload .py files, you can delete this dependancy and the "file_watcher.py" file.
+watchdog
+
+# Add keyboard navigation controls
+prompt_toolkit
+
+# Contains the pyWebView window
+pywebview

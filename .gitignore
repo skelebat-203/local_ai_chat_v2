@@ -1,0 +1,25 @@
+# Log files
+*.log
+logs/
+backend/data/s/*/chat_*.md
+
+# Local files
+personas/
+
+# Other common excludes
+__pycache__/
+*.pyc
+*.pyo
+
+# For AI directory (file watcher outputs)
+backend/src/utils/for_ai/
+
+# Tests directory
+backend/tests/
+
+# Environment and IDE
+.env
+.venv/
+venv/
+*.idea/
+.vscode/

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Local Chat</title>
+  <style>
+    :root {
+      --bg: #100018;
+      --panel: #1f1030;
+      --accent: #a855f7;
+      --accent-soft: #7c3aed;
+      --accent-light: #c4b5fd;
+      --text-main: #f5f3ff;
+      --text-muted: #a5b4fc;
+      --user-bubble: #4c1d95;
+      --assistant-bubble: #312e81;
+      --border-subtle: #4c1d95;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #4c1d95 0, #100018 45%, #02010a 100%);
+      font-family: system-ui, -pyWebViewle-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text-main);
+    }
+    .pyWebView {
+      width: 100%;
+      max-width: 900px;
+      height: 90vh;
+      max-height: 700px;
+      background: linear-gradient(135deg, #1f1030 0%, #02010f 60%, #1a1035 100%);
+      border-radius: 18px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+      padding: 16px 18px 18px;
+    }
+    .header {
+      padding: 4px 4px 10px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+    .title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+    }
+    .subtitle {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .chat {
+      flex: 1;
+      margin: 8px 0 10px;
+      padding: 10px 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      background: radial-gradient(circle at top left, rgba(124, 58, 237, 0.18), transparent 55%),
+                  linear-gradient(180deg, rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.6));
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .message {
+      max-width: 80%;
+      padding: 8px 10px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    .message.user {
+      align-self: flex-end;
+      background: linear-gradient(135deg, var(--user-bubble), #6d28d9);
+      border-bottom-right-radius: 2px;
+    }
+    .message.assistant {
+      align-self: flex-start;
+      background: linear-gradient(135deg, var(--assistant-bubble), #1d4ed8);
+      border-bottom-left-radius: 2px;
+    }
+    .message-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.7;
+      margin-bottom: 1px;
+    }
+    .input-area {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(148, 163, 184, 0.3);
+    }
+    textarea {
+      width: 100%;
+      resize: none;
+      min-height: 70px;
+      max-height: 110px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-main);
+      font-size: 0.9rem;
+      outline: none;
+    }
+    textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.6);
+    }
+    .submit-row {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      align-items: center;
+    }
+    .status {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    button {
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+      color: var(--text-main);
+      box-shadow: 0 8px 18px rgba(88, 28, 135, 0.45);
+      transition: transform 0.06s ease-out, box-shadow 0.06s ease-out, opacity 0.15s;
+    }
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(88, 28, 135, 0.7);
+    }
+    button:active {
+      transform: translateY(0);
+      box-shadow: 0 6px 12px rgba(88, 28, 135, 0.4);
+    }
+    button:disabled {
+      opacity: 0.6;
+      cursor: default;
+      transform: none;
+      box-shadow: 0 6px 12px rgba(30, 64, 175, 0.35);
+    }
+  </style>
+</head>
+<body>
+  <div class="pyWebView">
+    <header class="header">
+      <div>
+        <div class="title">Local Chat</div>
+        <div class="subtitle">Subject-aware LLM · 100% local</div>
+      </div>
+    </header>
+
+    <main id="chat" class="chat"></main>
+
+    <section class="input-area">
+      <textarea id="prompt" aria-label="prompt" placeholder="Type your message and press Ctrl+Enter to send..."></textarea>
+      <div class="submit-row">
+        <div id="status" class="status"></div>
+        <button id="sendBtn">Send</button>
+      </div>
+    </section>
+  </div>
+ 
+  <script>
+    const chatEl = document.getElementById('chat');
+    const promptEl = document.getElementById('prompt');
+    const sendBtn = document.getElementById('sendBtn');
+    const statusEl = document.getElementById('status');
+
+    let sending = false;
+
+    function appendChildMessage(role, content) {
+      const msg = document.createElement('div');
+      msg.className = 'message ' + (role === 'user' ? 'user' : 'assistant');
+
+      const label = document.createElement('div');
+      label.className = 'message-label';
+      label.textContent = role === 'user' ? 'You' : 'Assistant';
+
+      const body = document.createElement('div');
+      body.textContent = content;
+
+      msg.appendChild(label);
+      msg.appendChild(body);
+      chatEl.appendChild(msg);
+      chatEl.scrollTop = chatEl.scrollHeight;
+    }
+
+    async function sendMessage() {
+      if (sending) return;
+      const text = promptEl.value.trim();
+      if (!text) return;
+
+      sending = true;
+      sendBtn.disabled = true;
+      statusEl.textContent = 'Thinking...';
+
+      appendChildMessage('user', text);
+      promptEl.value = '';
+
+      try {
+        const api = window.pywebview && window.pywebview.api;
+        if (!api || !api.send_message) {
+          throw new Error('Backend is not available');
+        }
+        const result = await api.send_message(text);
+        // result is expected to be { reply: string, history: [ {role, content}, ... ] }
+        if (result && result.reply) {
+          appendChildMessage('assistant', result.reply);
+        } else {
+          appendChildMessage('assistant', '[No reply received]');
+        }
+      } catch (err) {
+        console.error(err);
+        appendChildMessage('assistant', 'Error: ' + (err.message || err));
+      } finally {
+        sending = false;
+        sendBtn.disabled = false;
+        statusEl.textContent = '';
+        promptEl.focus();
+      }
+    }
+
+    sendBtn.addEventListener('click', sendMessage);
+    promptEl.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    promptEl.focus();
+  </script>
+</body>
+</html>
