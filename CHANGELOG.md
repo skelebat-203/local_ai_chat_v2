@@ -6,7 +6,7 @@
 - File-based storage of personas, subjects, and chat logs.
 - Supports Ollama models (llama3 and qwen2.5-coder).
 
-## v1.0.1 - 2026-???
+## v1.0.1 - 2026-02-28
 - Moved to a new repo, since I could not fork the original
 - Removed all terminal code
 - Updated file structure to reflect that we're only running PyWebView
