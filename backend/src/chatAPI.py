@@ -1,7 +1,7 @@
 """API surface for the PyWebView frontend."""
 
 from core.chat import ChatSession
-from commands.pyWebView.command_handler import CommandHandler
+from commands.command_handler import CommandHandler
 
 class ChatAPI:
     def __init__(self, chat_session: ChatSession, command_handler: CommandHandler) -> None:

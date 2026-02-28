@@ -1,10 +1,7 @@
 """Chat-related command handlers."""
 
 from pathlib import Path
-from utils.ui import (
-    print_section_header, print_success, print_error,
-    get_user_input, get_confirmation, display_chat_history)
- 
+
 def handle_chat_history(retriever, chat):
     """Handle /c_history command - view all chats."""
     all_chats = retriever.list_all_chats()

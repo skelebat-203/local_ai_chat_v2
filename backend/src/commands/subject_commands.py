@@ -1,13 +1,5 @@
 """Subject and persona management command handlers."""
 
-from utils.ui import (
-    print_success,
-    print_error,
-    print_warning,
-    get_user_input,
-    get_confirmation
-)
- 
 def handle_list_personas(retriever):
     """Handle /p command."""
     personas = retriever.list_personas()

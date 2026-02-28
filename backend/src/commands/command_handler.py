@@ -1,18 +1,27 @@
 """Central command handler and router."""
 
-from commands.pyWebView.chat_commands import (
-    handle_chat_history, handle_chat_history_by_subject,
-    handle_clear_history, handle_status, handle_streaming_toggle,
-    handle_exit, handle_delete_chat, handle_chat_move,
-) 
-from commands.pyWebView.subject_commands import (
-    handle_list_personas, handle_list_subjects,
-    handle_new_subject, handle_new_persona,
-    handle_persona_subject_switch, handle_view_subject,
-    handle_view_persona,handle_delete_persona,
-    handle_delete_subject
+from commands.chat_commands import (
+    handle_chat_history,
+    handle_chat_history_by_subject,
+    handle_clear_history,
+    handle_status,
+    handle_streaming_toggle,
+    handle_exit,
+    handle_delete_chat,
+    handle_chat_move,
 )
-from utils.ui import print_commands
+
+from commands.subject_commands import (
+    handle_list_personas,
+    handle_list_subjects,
+    handle_new_subject,
+    handle_new_persona,
+    handle_persona_subject_switch,
+    handle_view_subject,
+    handle_view_persona,
+    handle_delete_persona,
+    handle_delete_subject,
+)
 
 class CommandHandler:
     """Handles routing and execution of user commands."""
@@ -38,10 +47,29 @@ class CommandHandler:
         if cmd == "/exit":
             return handle_exit(self.chat, self.logger), None
 
-        # Help command
         if cmd == "/help":
-            print_commands()
-            return False, None
+            # For now, just return a help message as normal chat text
+            help_text = (
+                "Commands:\n"
+                "/p - list personas\n"
+                "/s - list subjects\n"
+                "/s_new <name> - new subject\n"
+                "/p_new <name> - new persona\n"
+                "/s_inst - view/update subject instructions\n"
+                "/p_inst - view/update persona instructions\n"
+                "/status - show status\n"
+                "/clear - clear history\n"
+                "/c_history - list all chats\n"
+                "/c_history_<subject> - list chats for subject\n"
+                "/c_delete <index> - delete chat\n"
+                "/c_move - move chat (not fully supported in UI yet)\n"
+                "/p_delete <name> - delete persona\n"
+                "/s_delete <name> - delete subject\n"
+                "/swap [llama3|qwen2.5-coder] - switch model\n"
+                "/exit - end session"
+            )
+            # Just show this text as if the user asked a normal question
+            return False, help_text
 
         # Streaming toggle
         if cmd == "/pref_streaming":
