@@ -8,7 +8,7 @@ import webview  # pywebview
 # Base paths
 BASE_PATH = Path(__file__).parent          # .../backend/src
 ROOT_PATH = BASE_PATH.parent.parent        # .../local_chat_bot
-DATA_PATH = ROOT_PATH / "data"
+DATA_PATH = ROOT_PATH / "backend/data"
 FRONTEND_PATH = ROOT_PATH / "frontend" / "index.html"
 
 # Make src importable

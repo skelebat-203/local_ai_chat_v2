@@ -5,9 +5,9 @@ backend/data/s/*/chat_*.md
 
 # Local files
 personas/
+user_notes_thoughts.md
 
 # Other common excludes
-__pycache__/
 *.pyc
 *.pyo
 
@@ -23,3 +23,7 @@ backend/tests/
 venv/
 *.idea/
 .vscode/
+.venv/
+.local/
+__pycache__/
+.pytest_cache/
