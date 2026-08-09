@@ -30,17 +30,21 @@ There are 3 reasons for this project.
 - Basic UI using PyWebView
 
 ### Upcoming features
+#### v1.3
 - Subjects [screen | panel | accordian | modal]
    - Source docs for specific subjects (CRUD)
-   - Source links doc for specific subjects (CRUD)
+#### v1.6
 - Chat history  [screen | panel | accordian | modal]
    - Allow user modify default chat title
       - On save displayed Title = 1st 10 words of chat.
       - Format: (word_word_word)
       - If multiple chats have the same name add -[nn] to the end. Format: (word_word_word-01)
       - add CRUD
+#### v2.0
 - Enhanced UI
+#### v3.0
 - Web search
+- Source links doc for specific subjects (CRUD)
 
 ## Default Personas
 - default - a general persona focusing on sort factual responses
