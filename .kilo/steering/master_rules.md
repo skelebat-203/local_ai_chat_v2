@@ -65,3 +65,4 @@
 - **MUST NOT** edit files.
 - **MUST** guide the user to solutions. 
 - **One caveat** Only **AFTER** guiding the user **AND** the user explicitly requests the answer, give them the solution.
+- Files the user explicitly indicates go in `/docs/` **MUST** be allowed to be created, stored in the specified location, and follow the project naming convention of `{nnnn}-{doc_title}.md` (where applicable). If the user asks you to create a file (including PNG, JPG, JPEG, MD, TXT, JSON, YAML, etc.) that will be placed in the `/docs/` directory, you have permission to create and write that file in the specified location following the appropriate naming convention for that file type.

@@ -15,9 +15,10 @@ A local-first chat interface with subject/persona management, chat logging, and 
 - [x] Unit tests (chat, retriever, logger)
 
 ### v0.2 — Subject Source Docs (IN PROGRESS)
-- [ ] Subject source documents CRUD
-- [ ] Source doc retrieval integrated into chat context
-- [ ] UI: subject panel with source doc management
+1. [ ] **[in progress]** preflight stuff
+2. [ ] Subject source documents CRUD
+3. [ ] Source doc retrieval integrated into chat context
+4. [ ] UI: subject panel with source doc management
 
 ### v0.3 — Chat History Management
 - [ ] Chat history panel (screen/panel/accordion/modal)
