@@ -2,6 +2,7 @@
 *.log
 logs/
 backend/data/s/*/chat_*.md
+RESUME-HERE.md
 
 # Local files
 personas/
